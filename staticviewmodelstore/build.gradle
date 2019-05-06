@@ -18,7 +18,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -32,13 +32,8 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "androidx.appcompat:appcompat:${appcompat_version}"
-    implementation "androidx.core:core-ktx:${core_ktx_version}"
-    implementation "androidx.constraintlayout:constraintlayout:${constraintlayout_version}"
-    testImplementation "junit:junit:${junit_version}"
-    androidTestImplementation "androidx.test:runner:${runner_version}"
-    androidTestImplementation "androidx.test.espresso:espresso-core:${espresso_core_version}"
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${lifecycle_viewmodel_ktx_version}"
     implementation 'androidx.fragment:fragment-ktx:1.0.0'
     // ViewModel and LiveData
