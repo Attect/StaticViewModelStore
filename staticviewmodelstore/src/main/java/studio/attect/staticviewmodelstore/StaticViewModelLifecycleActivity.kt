@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import java.lang.IllegalStateException
 import java.util.ArrayList
 
-open class StaticViewModelLifecycleActivity:AppCompatActivity(), StaticViewModelStore.StaticViewModelStoreCaller {
+abstract class StaticViewModelLifecycleActivity:AppCompatActivity(), StaticViewModelStore.StaticViewModelStoreCaller {
     private val staticViewProviderKey = ArrayList<String>()
 
     /**

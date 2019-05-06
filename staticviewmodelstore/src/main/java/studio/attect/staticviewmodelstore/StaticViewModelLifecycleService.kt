@@ -4,7 +4,7 @@ import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.ViewModel
 import java.util.ArrayList
 
-open class StaticViewModelLifecycleService : LifecycleService(), StaticViewModelStore.StaticViewModelStoreCaller {
+abstract class StaticViewModelLifecycleService : LifecycleService(), StaticViewModelStore.StaticViewModelStoreCaller {
     private val staticViewProviderKey = ArrayList<String>()
 
     /**

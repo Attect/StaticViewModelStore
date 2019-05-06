@@ -3,7 +3,7 @@ package studio.attect.staticviewmodelstore
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 
-open class StaticViewModelLifecycleFragment :Fragment(), StaticViewModelStore.StaticViewModelStoreCaller {
+abstract class StaticViewModelLifecycleFragment :Fragment(), StaticViewModelStore.StaticViewModelStoreCaller {
     private val staticViewProviderKey:ArrayList<String> = arrayListOf()
 
     /**
