@@ -3,12 +3,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
 
 
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
 
@@ -35,7 +35,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:${appcompat_version}"
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${lifecycle_viewmodel_ktx_version}"
-    implementation 'androidx.fragment:fragment-ktx:1.0.0'
+    implementation 'androidx.fragment:fragment-ktx:1.1.0'
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:${lifecycle_extensions_version}"
 
