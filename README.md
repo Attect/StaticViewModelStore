@@ -4,7 +4,7 @@
 解决以下需求：
  1. 多个Activity间进行数据观察观察
  1. 跨多个Activity的各个Fragment间进行同一个数据观察
- 1.同时在多个Activity间、多个Fragment间、多个Service间混合跨度对同一数据进行观察
+ 1. 同时在多个Activity间、多个Fragment间、多个Service间混合跨度对同一数据进行观察
  
  相关演示：https://www.bilibili.com/video/av51635073/
  
