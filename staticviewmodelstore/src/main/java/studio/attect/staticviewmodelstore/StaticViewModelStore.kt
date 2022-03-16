@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
-import java.util.HashMap
 
 /**
  * 单例ViewModelStore
@@ -22,15 +21,15 @@ object StaticViewModelStore {
     private val TAG = "SVMS"
     private val viewModelStoreMap = HashMap<String, ViewModelStore>()
     private val viewModelProviderCounter = HashMap<String, Int>()
+    lateinit var application: Application
 
     /**
      * 从给定的全局ViewModelStore中创建一个ViewModelProvider以用于获取ViewModel实例
      *
      * @param key         ViewModelProvider的指定key
-     * @param application Android Application，用于创建ViewModel的Factory
      * @return 可创建在指定key的ViewModelStore中持有的ViewModel的ViewModelProvider
      */
-    fun getViewModelProvider(key: String, application: Application): ViewModelProvider {
+    fun getViewModelProvider(key: String): ViewModelProvider {
         val factory = ViewModelProvider.AndroidViewModelFactory.getInstance(application)
         var viewModelStore = viewModelStoreMap[key]
         if (viewModelStore == null) {
@@ -82,6 +81,8 @@ object StaticViewModelStore {
     }
 
     interface StaticViewModelStoreCaller {
-        fun <T : ViewModel> getStaticViewModel(viewModelStoreKey: String, cls: Class<out ViewModel>): T?
+        fun <T : ViewModel> getStaticViewModel(viewModelStoreKey: String, cls: Class<out ViewModel>): T
+
+        fun releaseStaticViewModel(isChangingConfigurations: Boolean = false)
     }
 }

@@ -3,8 +3,8 @@ package studio.attect.staticviewmodelstore
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 
-abstract class StaticViewModelLifecycleFragment :Fragment(), StaticViewModelStore.StaticViewModelStoreCaller {
-    private val staticViewProviderKey:ArrayList<String> = arrayListOf()
+open class StaticViewModelLifecycleFragment : Fragment(), StaticViewModelStore.StaticViewModelStoreCaller {
+    private val staticViewProviderKey: ArrayList<String> = arrayListOf()
 
     /**
      * 获得一个全局ViewModel
@@ -17,24 +17,23 @@ abstract class StaticViewModelLifecycleFragment :Fragment(), StaticViewModelStor
      * @param <T>               ViewModel实现类型
      * @return 请求的ViewModel
      */
-    override fun <T : ViewModel> getStaticViewModel(viewModelStoreKey: String, cls: Class<out ViewModel>): T? {
-        activity?.application?.let {
-            staticViewProviderKey.add(viewModelStoreKey)
-            return StaticViewModelStore.getViewModelProvider(viewModelStoreKey,it ).get(cls) as T
-        }
-        return null
+    override fun <T : ViewModel> getStaticViewModel(viewModelStoreKey: String, cls: Class<out ViewModel>): T {
+        staticViewProviderKey.add(viewModelStoreKey)
+        return StaticViewModelStore.getViewModelProvider(viewModelStoreKey).get(cls) as T
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        activity?.let {
-            //清除获取相关ViewModel的key计数
-            for (viewProviderKey in staticViewProviderKey) {
-                StaticViewModelStore.giveUpViewModelStore(viewProviderKey, it.isChangingConfigurations)
-            }
-            staticViewProviderKey.clear()
-        }
 
+        releaseStaticViewModel(requireActivity().isChangingConfigurations)
+    }
+
+    override fun releaseStaticViewModel(isChangingConfigurations: Boolean) {
+        //清除获取相关ViewModel的key计数
+        for (viewProviderKey in staticViewProviderKey) {
+            StaticViewModelStore.giveUpViewModelStore(viewProviderKey, isChangingConfigurations)
+        }
+        staticViewProviderKey.clear()
     }
 
 

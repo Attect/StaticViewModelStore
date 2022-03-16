@@ -1,18 +1,17 @@
 package studio.attect.staticviewmodelstore.example
 
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.fragment_top.*
 import studio.attect.staticviewmodelstore.StaticViewModelLifecycleFragment
+import studio.attect.staticviewmodelstore.StaticViewModelStore
 
 
-class TopFragment : StaticViewModelLifecycleFragment() {
+class TopFragment : Fragment(), StaticViewModelStore.StaticViewModelStoreCaller by StaticViewModelLifecycleFragment() {
     private var sampleViewModel: SampleViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,18 +26,23 @@ class TopFragment : StaticViewModelLifecycleFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sampleViewModel?.textData?.observe(this, Observer {
+        sampleViewModel?.textData?.observe(viewLifecycleOwner, Observer {
             applyViewModelData(it)
         })
         applyViewModelData(sampleViewModel?.textData?.value)
     }
 
     private fun applyViewModelData(text: String?) {
-        if(text!=null){
+        if (text != null) {
             textView.text = "持有数据:${text}"
-        }else{
+        } else {
             textView.text = "没有数据"
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        releaseStaticViewModel(requireActivity().isChangingConfigurations)
     }
 
 }

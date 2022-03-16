@@ -2,9 +2,8 @@ package studio.attect.staticviewmodelstore
 
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.ViewModel
-import java.util.ArrayList
 
-abstract class StaticViewModelLifecycleService : LifecycleService(), StaticViewModelStore.StaticViewModelStoreCaller {
+open class StaticViewModelLifecycleService : LifecycleService(), StaticViewModelStore.StaticViewModelStoreCaller {
     private val staticViewProviderKey = ArrayList<String>()
 
     /**
@@ -20,12 +19,16 @@ abstract class StaticViewModelLifecycleService : LifecycleService(), StaticViewM
     </T> */
     override fun <T : ViewModel> getStaticViewModel(viewModelStoreKey: String, cls: Class<out ViewModel>): T {
         staticViewProviderKey.add(viewModelStoreKey)
-        return StaticViewModelStore.getViewModelProvider(viewModelStoreKey, application).get(cls) as T
+        return StaticViewModelStore.getViewModelProvider(viewModelStoreKey).get(cls) as T
     }
 
     override fun onDestroy() {
         super.onDestroy()
 
+        releaseStaticViewModel()
+    }
+
+    override fun releaseStaticViewModel(isChangingConfigurations: Boolean) {
         //清除获取相关ViewModel的key计数
         for (viewProviderKey in staticViewProviderKey) {
             StaticViewModelStore.giveUpViewModelStore(

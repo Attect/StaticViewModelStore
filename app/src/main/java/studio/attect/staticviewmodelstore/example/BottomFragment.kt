@@ -23,7 +23,7 @@ class BottomFragment : StaticViewModelLifecycleFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sampleViewModel?.textData?.observe(this, Observer {
+        sampleViewModel?.textData?.observe(viewLifecycleOwner, Observer {
             applyViewModelData(it)
         })
         applyViewModelData(sampleViewModel?.textData?.value)

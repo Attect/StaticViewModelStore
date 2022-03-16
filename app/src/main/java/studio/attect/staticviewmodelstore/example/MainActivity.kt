@@ -2,11 +2,12 @@ package studio.attect.staticviewmodelstore.example
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.lifecycle.Observer
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import studio.attect.staticviewmodelstore.StaticViewModelLifecycleActivity
+import studio.attect.staticviewmodelstore.StaticViewModelStore
 
-class MainActivity : StaticViewModelLifecycleActivity() {
+class MainActivity : AppCompatActivity(), StaticViewModelStore.StaticViewModelStoreCaller by StaticViewModelLifecycleActivity() {
 //    lateinit var sampleViewModel:SampleViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,7 +19,12 @@ class MainActivity : StaticViewModelLifecycleActivity() {
 //        })
 
         button.setOnClickListener {
-            startActivity(Intent(this,SplitActivity::class.java))
+            startActivity(Intent(this, SplitActivity::class.java))
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        releaseStaticViewModel(isChangingConfigurations)
     }
 }
