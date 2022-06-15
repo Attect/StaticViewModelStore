@@ -76,7 +76,7 @@ object StaticViewModelStore {
     }
 
     interface StaticViewModelStoreCaller {
-        fun <T : ViewModel> getStaticViewModel(viewModelStoreKey: String, cls: Class<out ViewModel>): T
+        fun <T : ViewModel> getStaticViewModel(viewModelStoreKey: String, cls: Class<T>): T
 
         fun releaseStaticViewModel()
     }

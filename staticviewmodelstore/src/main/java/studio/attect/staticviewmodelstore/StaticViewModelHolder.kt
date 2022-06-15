@@ -21,9 +21,9 @@ class StaticViewModelHolder : StaticViewModelStore.StaticViewModelStoreCaller {
      * @param <T>               ViewModel实现类型
      * @return 请求的ViewModel
      */
-    override fun <T : ViewModel> getStaticViewModel(viewModelStoreKey: String, cls: Class<out ViewModel>): T {
+    override fun <T : ViewModel> getStaticViewModel(viewModelStoreKey: String, cls: Class<T>): T {
         staticViewProviderKey.add(viewModelStoreKey)
-        return StaticViewModelStore.getViewModelProvider(viewModelStoreKey).get(cls) as T
+        return StaticViewModelStore.getViewModelProvider(viewModelStoreKey).get(cls)
     }
 
     override fun releaseStaticViewModel() {
