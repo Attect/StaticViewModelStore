@@ -8,6 +8,9 @@ import androidx.lifecycle.Observer
 import studio.attect.staticviewmodelstore.StaticViewModelLifecycleFragment
 import studio.attect.staticviewmodelstore.example.databinding.FragmentBottomBinding
 
+/**
+ * 使用继承的Fragment
+ */
 class BottomFragment : StaticViewModelLifecycleFragment() {
     private lateinit var binding: FragmentBottomBinding
     private var sampleViewModel: SampleViewModel? = null

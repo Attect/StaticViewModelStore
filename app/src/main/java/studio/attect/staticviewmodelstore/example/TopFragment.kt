@@ -6,12 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import studio.attect.staticviewmodelstore.StaticViewModelLifecycleFragment
+import studio.attect.staticviewmodelstore.StaticViewModelHolder
 import studio.attect.staticviewmodelstore.StaticViewModelStore
 import studio.attect.staticviewmodelstore.example.databinding.FragmentTopBinding
 
-
-class TopFragment : Fragment(), StaticViewModelStore.StaticViewModelStoreCaller by StaticViewModelLifecycleFragment() {
+/**
+ * 直接委托实现StaticViewModelStoreCaller的Fragment
+ */
+class TopFragment : Fragment(), StaticViewModelStore.StaticViewModelStoreCaller by StaticViewModelHolder() {
     private lateinit var binding: FragmentTopBinding
     private var sampleViewModel: SampleViewModel? = null
 
@@ -43,7 +45,9 @@ class TopFragment : Fragment(), StaticViewModelStore.StaticViewModelStoreCaller 
 
     override fun onDestroy() {
         super.onDestroy()
-        releaseStaticViewModel(requireActivity().isChangingConfigurations)
+        if (!requireActivity().isChangingConfigurations) {
+            releaseStaticViewModel()
+        }
     }
 
 }

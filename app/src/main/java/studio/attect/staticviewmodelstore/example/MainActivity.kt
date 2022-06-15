@@ -23,6 +23,8 @@ class MainActivity : AppCompatActivity(), StaticViewModelStore.StaticViewModelSt
 
     override fun onDestroy() {
         super.onDestroy()
-        releaseStaticViewModel(isChangingConfigurations)
+        if (!isChangingConfigurations) {
+            releaseStaticViewModel()
+        }
     }
 }

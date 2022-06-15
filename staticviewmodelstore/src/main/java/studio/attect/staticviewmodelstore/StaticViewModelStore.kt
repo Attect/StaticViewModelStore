@@ -57,25 +57,20 @@ object StaticViewModelStore {
      * 否则将从全局viewModelStoreMap中彻底移除相关ViewModelStore
      *
      * @param key                      持有ViewModel的ViewModelStore
-     * @param isChangingConfigurations Activity是否正在变更配置,传入Activity.isChangingConfigurations()方法结果，若为Fragment或Service，则始终为false
      */
-    fun giveUpViewModelStore(key: String, isChangingConfigurations: Boolean) {
+    fun giveUpViewModelStore(key: String) {
         //Activity或Fragment可能持有但本次并未使用任何ViewModel
         var count = viewModelProviderCounter[key]
         if (count != null) {
             count--
             viewModelProviderCounter[key] = count
-            Log.d(TAG,"a customer leave store ${key} , left ${count} customer(s)")
-            if (count == 0 && !isChangingConfigurations) {
+            if (count == 0) {
                 viewModelProviderCounter.remove(key)
                 val viewModelStore = viewModelStoreMap[key]
                 if (viewModelStore != null) {
                     viewModelStore.clear()
                     viewModelStoreMap.remove(key)
-                    Log.i(TAG,"remove viewModelStore:${key}")
                 }
-            }else if (!isChangingConfigurations){
-                Log.i(TAG,"keep viewModelStore:${key} because activity is changing configurations")
             }
         }
     }
@@ -83,6 +78,6 @@ object StaticViewModelStore {
     interface StaticViewModelStoreCaller {
         fun <T : ViewModel> getStaticViewModel(viewModelStoreKey: String, cls: Class<out ViewModel>): T
 
-        fun releaseStaticViewModel(isChangingConfigurations: Boolean = false)
+        fun releaseStaticViewModel()
     }
 }
