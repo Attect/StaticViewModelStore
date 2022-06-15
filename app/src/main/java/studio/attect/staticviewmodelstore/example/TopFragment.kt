@@ -6,22 +6,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import kotlinx.android.synthetic.main.fragment_top.*
 import studio.attect.staticviewmodelstore.StaticViewModelLifecycleFragment
 import studio.attect.staticviewmodelstore.StaticViewModelStore
+import studio.attect.staticviewmodelstore.example.databinding.FragmentTopBinding
 
 
 class TopFragment : Fragment(), StaticViewModelStore.StaticViewModelStoreCaller by StaticViewModelLifecycleFragment() {
+    private lateinit var binding: FragmentTopBinding
     private var sampleViewModel: SampleViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sampleViewModel = getStaticViewModel("testCustomKey", SampleViewModel::class.java)
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_top, container, false)
+        binding = FragmentTopBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,9 +35,9 @@ class TopFragment : Fragment(), StaticViewModelStore.StaticViewModelStoreCaller 
 
     private fun applyViewModelData(text: String?) {
         if (text != null) {
-            textView.text = "持有数据:${text}"
+            binding.textView.text = "持有数据:${text}"
         } else {
-            textView.text = "没有数据"
+            binding.textView.text = "没有数据"
         }
     }
 

@@ -5,10 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import kotlinx.android.synthetic.main.fragment_bottom.*
 import studio.attect.staticviewmodelstore.StaticViewModelLifecycleFragment
+import studio.attect.staticviewmodelstore.example.databinding.FragmentBottomBinding
 
 class BottomFragment : StaticViewModelLifecycleFragment() {
+    private lateinit var binding: FragmentBottomBinding
     private var sampleViewModel: SampleViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,7 +19,8 @@ class BottomFragment : StaticViewModelLifecycleFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_bottom, container, false)
+        binding = FragmentBottomBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -27,16 +29,16 @@ class BottomFragment : StaticViewModelLifecycleFragment() {
             applyViewModelData(it)
         })
         applyViewModelData(sampleViewModel?.textData?.value)
-        button.setOnClickListener {
-            sampleViewModel?.textData?.value = editText.text.toString()
+        binding.button.setOnClickListener {
+            sampleViewModel?.textData?.value = binding.editText.text.toString()
         }
     }
 
     private fun applyViewModelData(text: String?) {
         if (text != null) {
-            editText.setText(text)
+            binding.editText.setText(text)
         } else {
-            editText.setText("")
+            binding.editText.setText("")
         }
     }
 }

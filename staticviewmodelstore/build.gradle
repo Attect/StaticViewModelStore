@@ -24,6 +24,7 @@ android {
         setSourceCompatibility(JavaVersion.VERSION_1_8)
         setTargetCompatibility(JavaVersion.VERSION_1_8)
     }
+    namespace 'studio.attect.staticviewmodelstore'
 
 }
 

@@ -3,22 +3,20 @@ package studio.attect.staticviewmodelstore.example
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
 import studio.attect.staticviewmodelstore.StaticViewModelLifecycleActivity
 import studio.attect.staticviewmodelstore.StaticViewModelStore
+import studio.attect.staticviewmodelstore.example.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), StaticViewModelStore.StaticViewModelStoreCaller by StaticViewModelLifecycleActivity() {
-//    lateinit var sampleViewModel:SampleViewModel
+    //    lateinit var sampleViewModel:SampleViewModel
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-//        sampleViewModel = getStaticViewModel("testCustomKey",SampleViewModel::class.java)
-//        sampleViewModel.textData.observe(this, Observer {
-//            textView.text = "持有数据:${it}"
-//        })
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        button.setOnClickListener {
+        binding.button.setOnClickListener {
             startActivity(Intent(this, SplitActivity::class.java))
         }
     }

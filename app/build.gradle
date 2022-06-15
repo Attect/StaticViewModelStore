@@ -24,6 +24,10 @@ android {
         setSourceCompatibility(JavaVersion.VERSION_1_8)
         setTargetCompatibility(JavaVersion.VERSION_1_8)
     }
+    buildFeatures {
+        viewBinding true
+    }
+    namespace 'studio.attect.staticviewmodelstore.example'
 }
 
 dependencies {
